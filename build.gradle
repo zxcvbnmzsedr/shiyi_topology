@@ -1,0 +1,63 @@
+plugins {
+    id "org.springframework.boot" version "2.5.4"
+    id 'java'
+    id("com.github.node-gradle.node") version "3.1.0"
+}
+java.sourceCompatibility = JavaVersion.VERSION_15
+java.targetCompatibility = JavaVersion.VERSION_15
+group 'com.ztianzeng'
+version '1.0-SNAPSHOT'
+def frontPrject = "front-web"
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://maven.aliyun.com/repository/public'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.11.0'
+
+    implementation('org.springframework.boot:spring-boot-starter-web:2.5.4')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.5.4'
+
+    implementation 'cn.hutool:hutool-all:5.7.11'
+    implementation 'net.bitnine:agensgraph-jdbc:1.4.2'
+    implementation 'com.meilisearch.sdk:meilisearch-java:0.4.1'
+
+
+    compileOnly('org.projectlombok:lombok:1.18.20')
+    annotationProcessor('org.projectlombok:lombok:1.18.20')
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+
+}
+node {
+    download = true
+    nodeProjectDir = file("${project.projectDir}/${frontPrject}")
+}
+def yarn = tasks.named("yarn")
+def buildTask = tasks.register("buildWebapp", NpxTask) {
+    command = "yarn"
+    args = ["build"]
+    dependsOn(yarn)
+    return outputs.dir("${project.projectDir}/${frontPrject}/dist")
+}
+
+sourceSets {
+    java {
+        main {
+            resources {
+                srcDirs(buildTask)
+            }
+        }
+    }
+}
+test {
+    useJUnitPlatform()
+}

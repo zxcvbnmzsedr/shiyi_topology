@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:agensgraph://localhost:5432/java_engineer
+    username: postgres
+    password: agensgraph
+    driver-class-name: net.bitnine.agensgraph.Driver
+  sql:
+    init:
+      continue-on-error: true
+search:
+  url: http://localhost:7700
+interview:
+  # todo 在本地路径为空的时候，到远程git进行拉取
+  init-from-git: true
+  init-from-git-url:  https://github.com/zxcvbnmzsedr/java_enginner_interview
+  local-path: interview

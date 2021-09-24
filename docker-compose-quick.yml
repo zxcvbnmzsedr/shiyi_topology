@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  agensgraph:
+    container_name: agensgraph
+    build: docker
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: agensgraph
+      POSTGRES_DB: shiyi_topology
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  meilisearch:
+    container_name: meilisearch
+    image: getmeili/meilisearch
+    restart: always
+    ports:
+      - 7700:7700
+  topology:
+    build: .
+    depends_on:
+      - agensgraph
+      - meilisearch
+    volumes:
+      - ./interview:/topology/interview
+    ports:
+      - "8080:8080"

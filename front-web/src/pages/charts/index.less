@@ -1,0 +1,44 @@
+
+.box {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px);
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+.chart {
+  width: 500px;
+  height: 100%;
+}
+
+.modal {
+  :global {
+    .ant-modal-body {
+      padding: 0;
+    }
+  }
+
+  width: 2000px;
+}
+
+.item {
+  cursor: pointer;
+}
+
+
+
+.searchItem {
+  > input {
+    border-radius: 26px;
+  }
+
+  padding-left: 15px;
+  height: 50px;
+  position: relative;
+  width: 100%;
+  max-width: 840px;
+}
