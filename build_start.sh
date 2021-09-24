@@ -8,11 +8,10 @@ build_jar(){
   gradle build -i --stacktrace
 }
 build_docker(){
-   docker-compose build agensgraph
-   docker-compose build --no-cache topology
+   docker-compose build --no-cache
 }
 start(){
-  docker compose up -d
+  docker-compose up -d
 }
 clean_front
 build_jar

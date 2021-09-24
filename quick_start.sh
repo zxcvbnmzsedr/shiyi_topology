@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
 build_docker(){
-   docker-compose build agensgraph
+   docker-compose build --no-cache
 }
 start(){
-  docker compose up -f docker-compose-quick.yml -d
+  docker-compose -f docker-compose-quick.yml up -d
 }
 build_docker
 start

@@ -23,6 +23,6 @@ services:
       - agensgraph
       - meilisearch
     volumes:
-      - ./interview:/topology/interview
+      - ./interview:/shiyi_topology/interview
     ports:
       - "8080:8080"
