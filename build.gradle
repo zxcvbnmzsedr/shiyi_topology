@@ -27,6 +27,8 @@ dependencies {
     implementation 'net.bitnine:agensgraph-jdbc:1.4.2'
     implementation 'com.meilisearch.sdk:meilisearch-java:0.4.1'
 
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r'
+
 
     compileOnly('org.projectlombok:lombok:1.18.20')
     annotationProcessor('org.projectlombok:lombok:1.18.20')

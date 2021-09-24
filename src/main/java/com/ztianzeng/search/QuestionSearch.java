@@ -52,6 +52,7 @@ public class QuestionSearch {
                 Tmp convert = Convert.convert(Tmp.class, a);
                 convert.setIdCopy(a.getId());
                 convert.setId(MD5.create().digestHex(a.getId()));
+                // todo: 在对content建立索引的时候，非常的慢，不知道为啥，后面得深入研究一下
 //                convert.setContent(ContentParseUtils.parseContent(a.getContent()));
                 convert.setContent(null);
                 return convert;

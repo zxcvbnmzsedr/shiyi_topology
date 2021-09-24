@@ -7,4 +7,5 @@ package com.ztianzeng.core;
  */
 public interface Constant {
     String QUESTION_SEARCH_INDEX = "question";
+    String VALID_FILE = "md";
 }

@@ -9,14 +9,7 @@ build_jar(){
 }
 build_docker(){
    docker-compose build agensgraph
-   docker-compose build --no-cache java_engineer
-}
-clone_interview(){
-  if [ ! -d "interview" ];then
-    git clone https://github.com/zxcvbnmzsedr/java_enginner_interview.git && mv  java_enginner_interview interview
-    else
-    echo "文件夹已经存在"
-  fi
+   docker-compose build --no-cache topology
 }
 start(){
   docker compose up -d
@@ -24,5 +17,4 @@ start(){
 clean_front
 build_jar
 build_docker
-clone_interview
 start

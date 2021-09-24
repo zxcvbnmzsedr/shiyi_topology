@@ -4,7 +4,6 @@ ENV DATADOURSE_URL jdbc:agensgraph://agensgraph:5432/shiyi_topology
 ENV DATADOURSE_USERNAME postgres
 ENV DATADOURSE_PASSWORD agensgraph
 ENV SEARCH_URL http://meilisearch:7700
-
 COPY build/libs/shiyi_topology-1.0-SNAPSHOT.jar shiyi_topology.jar
 ENV JAVA_OPTS -Xmx1024m -Xms1024m
 ENV SPRING_OPTS=""

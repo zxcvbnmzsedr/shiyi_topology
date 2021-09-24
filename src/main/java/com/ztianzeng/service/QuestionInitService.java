@@ -1,6 +1,7 @@
 package com.ztianzeng.service;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
 import com.ztianzeng.core.QuestionDefinition;
@@ -10,7 +11,7 @@ import com.ztianzeng.core.parse.ContentParseUtils;
 import com.ztianzeng.repo.InterviewGraphRepo;
 import com.ztianzeng.repo.QuestionRepo;
 import com.ztianzeng.search.QuestionSearch;
-import com.ztianzeng.util.FileUtil;
+import com.ztianzeng.util.GitUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
@@ -24,6 +25,9 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.ztianzeng.core.Constant.VALID_FILE;
+import static org.eclipse.jgit.api.Git.cloneRepository;
+
 /**
  * 问题服务
  *
@@ -34,6 +38,11 @@ import java.util.stream.Collectors;
 public class QuestionInitService {
     @Value("${interview.local-path}")
     private String interviewPath;
+    @Value("${interview.init-from-git}")
+    private Boolean initFromGit;
+    @Value("${interview.init-from-git-url}")
+    private String initFromGitUrl;
+
     @Autowired
     private InterviewGraphRepo interviewGraphRepo;
     @Autowired
@@ -64,7 +73,7 @@ public class QuestionInitService {
      * @throws Exception
      */
     public void listenFileChange() throws Exception {
-        File currentPath = new File(interviewPath);
+        File currentPath = FileUtil.newFile(interviewPath);
         FileAlterationObserver observer = new FileAlterationObserver(currentPath);
         observer.addListener(new FileAlterationListener() {
             @Override
@@ -126,8 +135,15 @@ public class QuestionInitService {
      */
     public void init() {
         clean();
+        File dir = FileUtil.newFile(interviewPath);
+        if (!FileUtil.exist(dir) || FileUtil.isDirEmpty(dir)) {
+            if (initFromGit) {
+                // git from out url
+                GitUtil.cloneRepository(initFromGitUrl, interviewPath);
+            }
+        }
         // loadFile
-        var questionDefinitions = loadFiles(interviewPath);
+        var questionDefinitions = loadFiles(dir);
         var defMap = getAllMap(questionDefinitions);
         // 创建节点
         for (QuestionDefinition question : defMap.values()) {
@@ -182,12 +198,17 @@ public class QuestionInitService {
     /**
      * 加载所有的文件,解析,验证塞入到questionMap中
      *
-     * @param path 文件路径
+     * @param dir 文件夹
      */
-    private Set<QuestionDefinition> loadFiles(String path) {
+    private Set<QuestionDefinition> loadFiles(File dir) {
         // 解析所有的文件
-        var fileSet = FileUtil.extractFiles(path);
-        return fileSet.stream().filter(a -> !IGNORE_FILE.contains(FileNameUtil.mainName(a.getName()))).map(this::read).collect(Collectors.toSet());
+        var fileSet = FileUtil.loopFiles(dir);
+        return fileSet.stream()
+                .filter(a -> !IGNORE_FILE.contains(FileNameUtil.mainName(a.getName())))
+                .filter(a -> !a.isDirectory())
+                .filter(a -> VALID_FILE.equals(FileNameUtil.getSuffix(a.getName())))
+                .map(this::read)
+                .collect(Collectors.toSet());
     }
 
 

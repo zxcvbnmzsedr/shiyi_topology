@@ -1,4 +1,4 @@
-create database shiyi_topology;
+-- create database shiyi_topology;
 CREATE
 EXTENSION zhparser;
 CREATE

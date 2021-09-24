@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: agensgraph
-      POSTGRES_DB: java_engineer
+      POSTGRES_DB: shiyi_topology
       PGDATA: /var/lib/postgresql/data
     ports:
       - 5432:5432
@@ -16,12 +16,13 @@ services:
     restart: always
     ports:
       - 7700:7700
-  java_engineer:
+  topology:
     build: .
+    container_name: shiyi_topology
     depends_on:
       - agensgraph
       - meilisearch
     volumes:
-      - ./interview:/java_engineer/interview
+      - ./interview:/shiyi_topology/interview
     ports:
       - "8080:8080"

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:agensgraph://localhost:5432/java_engineer
+    url: jdbc:agensgraph://localhost:5432/shiyi_topology
     username: postgres
     password: agensgraph
     driver-class-name: net.bitnine.agensgraph.Driver

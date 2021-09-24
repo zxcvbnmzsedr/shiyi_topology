@@ -17,7 +17,8 @@ services:
     ports:
       - 7700:7700
   topology:
-    build: .
+    image:  zxcvbnmzsedr/shiyi_topology:0.0.1
+    container_name: shiyi_topology
     depends_on:
       - agensgraph
       - meilisearch
