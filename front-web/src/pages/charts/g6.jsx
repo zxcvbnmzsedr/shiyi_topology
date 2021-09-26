@@ -15,7 +15,7 @@ const {
 } = Behaviors;
 const fittingString = (str, maxWidth, fontSize) => {
   let currentWidth = 0;
-  let res = str;
+  let res;
   const pattern = new RegExp('[\u4E00-\u9FA5]+'); // distinguish the Chinese charactors and letters
   str.split('').forEach((letter, i) => {
     if (currentWidth > maxWidth) return;
@@ -30,7 +30,7 @@ const fittingString = (str, maxWidth, fontSize) => {
       res = `${str.substr(0, i)}\n${str.substr(i)}`;
     }
   });
-  return str;
+  return res;
 };
 
 const defaultLayout = {
@@ -40,34 +40,36 @@ const defaultLayout = {
   },
   animation: true
 }
-const defaultNode = ({id, category,title}) => {
+const getNode = ({id, category, title}) => {
+  if (id.includes("TODO")) {
+    return {
+      id,
+      category,
+      style: {
+        label: {
+          value: fittingString(title, 80, 12),
+        },
+        keyshape: {
+          fill: 'red',
+          stroke: 'red',
+          fillOpacity: 0.1,
+          size: 26,
+        },
+      }
+    }
+  }
   return {
-    id: id,
-    category: category,
+    id,
+    category,
     style: {
       label: {
         value: fittingString(title, 80, 12),
       },
     }
   }
+
 }
-const todoNode = ({id, category,title}) => {
-  return {
-    id: id,
-    category: category,
-    style: {
-      label: {
-        value: fittingString(title, 80, 12),
-      },
-      keyshape: {
-        fill: 'red',
-        stroke: 'red',
-        fillOpacity: 0.1,
-        size: 26,
-      },
-    }
-  }
-}
+
 const focusItem = (graph, id) => {
   if (!id) {
     return
@@ -79,28 +81,23 @@ const focusItem = (graph, id) => {
   });
   const nodes = graph.getNodes();
   const edges = graph.getEdges();
-  const nodeLength = nodes.length;
-  const edgeLength = edges.length;
   const activeState = 'active'
   const inactiveState = 'inactive'
-  for (let i = 0; i < nodeLength; i++) {
-    const node = nodes[i];
+  nodes.forEach((node) => {
     graph.setItemState(node, activeState, false);
     graph.setItemState(node, inactiveState, true);
-  }
-  for (let i = 0; i < edgeLength; i++) {
-    const edge = edges[i];
+  })
+  edges.forEach((edge)=>{
     graph.setItemState(edge, activeState, false);
     graph.setItemState(edge, inactiveState, true);
-  }
+  })
+
 
   graph.setItemState(item, inactiveState, false);
   graph.setItemState(item, activeState, true);
 
   const rEdges = item.getEdges();
-  const rEdgeLegnth = rEdges.length;
-  for (let i = 0; i < rEdgeLegnth; i++) {
-    const edge = rEdges[i];
+  rEdges.forEach((edge)=>{
     let otherEnd;
     if (edge.getSource() === item) {
       otherEnd = edge.getTarget();
@@ -112,13 +109,11 @@ const focusItem = (graph, id) => {
     graph.setItemState(edge, inactiveState, false);
     graph.setItemState(edge, activeState, true);
     edge.toFront();
-
-
-  }
+  })
 }
 const SampleBehavior = (props) => {
   const {id} = props
-  const {graph, apis} = useContext(GraphinContext);
+  const {graph} = useContext(GraphinContext);
   if (id) {
     const nn = graph.findById(id);
     if (nn) {
@@ -141,64 +136,53 @@ const G6Graph = (props) => {
     return getData();
   });
   const {changeId, id} = props
-  const {edges, nodes, combos} = data || {
+  const {edges, nodes} = data || {
     edges: [],
     nodes: [],
     combos: []
   };
-  const nodesList = []
-  for (let i = 0; i < nodes.length; i++) {
-    if (nodes[i].id.includes("TODO")) {
-      nodesList.push(todoNode(nodes[i]))
-    } else {
-      nodesList.push(defaultNode(nodes[i]))
-    }
-  }
-  const edgeList = []
-  for (let i = 0; i < edges.length; i++) {
-    const tmp = {
-      source: edges[i].source,
-      target: edges[i].target,
+  const nodesList = nodes.map((node) => {
+    return getNode(node)
+  })
+  const edgeList = edges.map((edge) => {
+    return {
+      source: edge.source,
+      target: edge.target,
       style: {
         label: {
-          value: fittingString(edges[i].label, 3, 12),
+          value: fittingString(edge.label, 80, 12),
           fill: '#000000',
           offset: [0, 0],
         }
       }
     }
-    edgeList.push(tmp)
-  }
+  })
   const graphinRef = React.createRef();
   React.useEffect(() => {
     const {
-      graph, // g6 的Graph实例
-      apis, // Graphin 提供的API接口,
+      graph,
     } = graphinRef.current;
     graph.on('node:click', (evt) => {
       changeId(evt.item.getModel().id)
     });
-  }, []);
+  });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const handleClear = () => {
     changeId()
   };
   const handleFocus = () => {
     const {graph} = graphinRef.current;
-    const {id} = props
     focusItem(graph, id)
   }
-  const handleZoomIn = () => {
+  const zoomIn = () => {
     const {graph, apis} = graphinRef.current;
     const {handleZoomIn} = apis;
-    const {id} = props
     handleZoomIn();
     focusItem(graph, id)
   }
-  const handleZoomOut = () => {
+  const zoomOut = () => {
     const {graph, apis} = graphinRef.current;
     const {handleZoomOut} = apis;
-    const {id} = props
     handleZoomOut();
     focusItem(graph, id)
   }
@@ -233,8 +217,8 @@ const G6Graph = (props) => {
           <SearchOutlined/>
         </Toolbar.Item>
         <Toolbar.Item onClick={handleFocus}><AimOutlined/></Toolbar.Item>
-        <Toolbar.Item onClick={handleZoomIn} key='zoomIn'><ZoomInOutlined/></Toolbar.Item>
-        <Toolbar.Item onClick={handleZoomOut} key='zoomOut'><ZoomOutOutlined/></Toolbar.Item>
+        <Toolbar.Item onClick={zoomIn} key='zoomIn'><ZoomInOutlined/></Toolbar.Item>
+        <Toolbar.Item onClick={zoomOut} key='zoomOut'><ZoomOutOutlined/></Toolbar.Item>
         <Toolbar.Item onClick={handleClear} key='clearCanvas'><DeleteOutlined/></Toolbar.Item>
       </Toolbar>
       <Hoverable/>
@@ -242,7 +226,8 @@ const G6Graph = (props) => {
       <ZoomCanvas disabled/>
       <ActivateRelations trigger="click"/>
     </Graphin>
-    <Search changeId={changeId} onOk={handleOk} onSelect={handleSelect} onCancel={handleCancel} visible={isModalVisible}/>
+    <Search changeId={changeId} onOk={handleOk} onSelect={handleSelect} onCancel={handleCancel}
+            visible={isModalVisible}/>
   </div>;
 }
 
