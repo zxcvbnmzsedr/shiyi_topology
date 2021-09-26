@@ -10,6 +10,7 @@ import rehypeRaw from 'rehype-raw'
 
 import 'github-markdown-css'
 import './questionDetail'
+import Editor from "./editor";
 
 const QuestionDetail = (props) => {
   const {id} = props;
@@ -26,6 +27,7 @@ const QuestionDetail = (props) => {
   };
   return (
     <div>
+      {/*<Editor content={content}/>*/}
       <ReactMarkdown
         className="markdown-body"
         children={content}

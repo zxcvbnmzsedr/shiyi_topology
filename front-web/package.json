@@ -61,6 +61,7 @@
     "@antv/graphin": "2.3.6",
     "@antv/graphin-components": "^2.3.0",
     "@antv/graphin-icons": "^1.0.0",
+    "@umijs/plugin-sass": "^1.1.1",
     "@umijs/preset-ui": "^2.2.9",
     "@umijs/route-utils": "^1.0.36",
     "algoliasearch": "^4.10.5",
@@ -87,7 +88,8 @@
     "remark-gfm": "^2.0.0",
     "remark-mermaid": "^0.2.0",
     "umi": "^3.5.0",
-    "umi-serve": "^1.9.10"
+    "umi-serve": "^1.9.10",
+    "vditor": "^3.8.7"
   },
   "homepage": ".",
   "devDependencies": {
