@@ -8,16 +8,19 @@
 
 这个项目主要帮助你，以层层深挖的方式，寻找你的知识盲区
 
-
 ## 如何启动
+
 会直接使用打包好的镜像进行启动
+
 ~~~
 ./quick_start.sh
 ~~~
 
 如果想编译启动，请在jdk15的环境下使用
+
 ```shell
 ./build_start.sh
 ```
 
-![image-20210926150734303](http://java-engineer.ztianzeng.com/uPic/image-20210926150734303.png)
+![image-20210926150734303](img/img.png)
+![image-20210926150734303](img/img_1.png)
