@@ -19,3 +19,5 @@
 ```shell
 ./build_start.sh
 ```
+
+![image-20210926150734303](http://java-engineer.ztianzeng.com/uPic/image-20210926150734303.png)
