@@ -15,7 +15,7 @@ const {
 } = Behaviors;
 const fittingString = (str, maxWidth, fontSize) => {
   let currentWidth = 0;
-  let res;
+  let res = str;
   const pattern = new RegExp('[\u4E00-\u9FA5]+'); // distinguish the Chinese charactors and letters
   str.split('').forEach((letter, i) => {
     if (currentWidth > maxWidth) return;
@@ -87,7 +87,7 @@ const focusItem = (graph, id) => {
     graph.setItemState(node, activeState, false);
     graph.setItemState(node, inactiveState, true);
   })
-  edges.forEach((edge)=>{
+  edges.forEach((edge) => {
     graph.setItemState(edge, activeState, false);
     graph.setItemState(edge, inactiveState, true);
   })
@@ -97,7 +97,7 @@ const focusItem = (graph, id) => {
   graph.setItemState(item, activeState, true);
 
   const rEdges = item.getEdges();
-  rEdges.forEach((edge)=>{
+  rEdges.forEach((edge) => {
     let otherEnd;
     if (edge.getSource() === item) {
       otherEnd = edge.getTarget();
