@@ -16,8 +16,8 @@ export function Autocomplete({onSelect, queryNode, placeholder}) {
     run(e.target.value)
     setSearchText(e.target.value)
   }
-  const handleResult = () => {
-    if (data.length === 0) {
+  const handleResult = (d) => {
+    if (d.length === 0) {
       return <div className="aa-SourceNoResults">
         <div>
           查不到结果: <b>{searchText}</b>
@@ -27,7 +27,7 @@ export function Autocomplete({onSelect, queryNode, placeholder}) {
     return <ul className="aa-List">
       {
 
-        data?.map((item) => {
+        d?.map((item) => {
           return <li className="aa-Item" key={item.id}>
             <ProductItem hit={item} onClick={onSelect}/>
           </li>
@@ -62,7 +62,7 @@ export function Autocomplete({onSelect, queryNode, placeholder}) {
                  style={{width: '100%'}}>
       <div className="aa-PanelLayout aa-Panel--scrollable">
         <section className="aa-Source" data-autocomplete-source-id="predictions">
-          {handleResult}
+          {handleResult(data)}
         </section>
       </div>
       <div className="aa-GradientBottom"/>

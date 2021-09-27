@@ -23,29 +23,6 @@ const Search = ({changeId, onSelect, visible, onConfirm, ...rest}) => {
       detachedMediaQuery='none'
       queryNode={queryNode}
       onSelect={onSelect}
-      getSources={
-        async ({query}) => {
-          const data = await queryNode(query);
-          return [
-            {
-              sourceId: 'predictions',
-              getItems() {
-                return data.data;
-              },
-              templates: {
-                item({item}) {
-                  return <ProductItem hit={item} onClick={onSelect}/>;
-                },
-                noResults() {
-                  return <div>
-                    查不到结果: <b>"{query}"</b>
-                  </div>
-                }
-              },
-            },
-          ]
-        }
-      }
     />
   </Modal>
 }
