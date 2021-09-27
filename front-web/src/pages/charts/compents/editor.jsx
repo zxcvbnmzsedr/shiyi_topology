@@ -10,16 +10,18 @@ const Editor = ({content}) => {
     const vditor = new Vditor('vditor', {
       mode:'ir',
       toolbarConfig: {
-        pin: true,
+        pin: false,
+        hide:true
       },
+      value:content,
       cache: {
         enable: false,
       },
-      after() {
-        vditor.setValue(content)
+      preview:{
+        markdown:content
       },
     })
-  })
+  },[content])
   return e(
     'div',
     {id: 'vditor'},

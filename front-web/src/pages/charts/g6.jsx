@@ -6,6 +6,9 @@ import {Legend, Toolbar,} from '@antv/graphin-components';
 import Graphin, {Behaviors, GraphinContext} from '@antv/graphin';
 import {AimOutlined, DeleteOutlined, SearchOutlined, ZoomInOutlined, ZoomOutOutlined} from '@ant-design/icons';
 import Search from "./compents/search";
+import iconFrontLoader from "../../components/IconFont/IconFontLoader";
+// 注册到 Graphin 中
+const icons = Graphin.registerFontFamily(iconFrontLoader);
 
 const {
   ZoomCanvas,
@@ -40,7 +43,29 @@ const defaultLayout = {
   },
   animation: true
 }
+const getIcon = (category) => {
+  switch (category) {
+    case 'redis':
+      return icons.redis;
+    case '树':
+      return icons.shuzhuangtu;
+    case 'java':
+      return icons.java;
+    case '网络':
+      return icons.wangluo;
+    case '手撕代码':
+      return icons['24gl-code'];
+    case '数据结构':
+      return icons['relation-full'];
+    case '分布式':
+      return icons.fenbushi
+    default:
+      return null;
+  }
+}
 const getNode = ({id, category, title}) => {
+
+
   if (id.includes("TODO")) {
     return {
       id,
@@ -62,6 +87,11 @@ const getNode = ({id, category, title}) => {
     id,
     category,
     style: {
+      icon: {
+        type: 'font',
+        fontFamily: 'iconfont',
+        value: getIcon(category),
+      },
       label: {
         value: fittingString(title, 80, 12),
       },
