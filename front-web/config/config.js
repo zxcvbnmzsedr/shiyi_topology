@@ -7,6 +7,24 @@ import routes from './routes';
 
 const {REACT_APP_ENV} = process.env;
 export default defineConfig({
+  metas:[
+    {
+      name:'title',
+      content:'时宜拓扑 - 利用拓扑图组织知识'
+    },
+    {
+      name:'content',
+      content:'时宜拓扑，使用拓扑图来组织面试题，提供碎片化的面试题，让你在面试中脱颖而出!'
+    },
+    {
+      name:'keyword',
+      content:'时宜,时宜拓扑,时宜Java全站,Java面试题,Java全站'
+    },
+    {
+      name:'viewport',
+      content:"viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    }
+  ],
   hash: true,
   antd: {},
   dva: {

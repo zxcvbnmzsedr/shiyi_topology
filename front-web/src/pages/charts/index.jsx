@@ -1,30 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory, useLocation} from "umi";
+import {useHistory} from "umi";
 
-import QuestionDetail from './compents/questionDetail'
+import QuestionDetail from './components/questionDetail'
 import G6Graph from "./g6";
 import styles from "./index.less";
 
 
 const Page = (props) => {
-  const location = useLocation();
   const history = useHistory();
-  const [id, setId] = useState(location.query.id);
+  const [id, setId] = useState(props.match?.params?.id);
 
 
   useEffect(() => {
-    if (location.query.id) {
-      setId(location.query.id);
+    if (props.match?.params?.id) {
+      setId(props.match.params.id);
     }
-  }, [location.query])
+  }, [props.match?.params?.id])
 
-  const changeId = (id) => {
-    setId(id)
-    history.push({
-      query: {
-        id: id
-      }
-    });
+  const changeId = (selectId) => {
+    if (selectId){
+      history.push(`/detail/${selectId}.html`);
+    }else {
+      history.push(`/detail`);
+    }
+    setId(selectId)
   }
   if (!id){
     return <G6Graph changeId={changeId} id={id}/>

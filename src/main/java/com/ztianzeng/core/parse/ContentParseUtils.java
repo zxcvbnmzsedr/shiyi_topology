@@ -40,11 +40,11 @@ public class ContentParseUtils {
                 StringBuilder sb = new StringBuilder();
                 sb.append(ask).append("\n\n");
                 for (String st : split) {
-                    sb.append("[%s](/welcome?id=%s)".formatted(st, st)).append("\n\n");
+                    sb.append("[%s](/detail/%s)".formatted(st, st)).append("\n\n");
                 }
                 content = ReUtil.replaceFirst(INVOLUTION_HAS_PATTERN, content, sb.toString());
             } else {
-                content = ReUtil.replaceFirst(INVOLUTION_HAS_PATTERN, content, "[%s](/welcome?id=%s)".formatted(ask, question));
+                content = ReUtil.replaceFirst(INVOLUTION_HAS_PATTERN, content, "[%s](/detail/%s)".formatted(ask, question));
             }
         }
         return content;

@@ -1,24 +1,5 @@
 export default [
   {
-    path: '/user',
-    layout: false,
-    routes: [
-      {
-        path: '/user',
-        routes: [
-          {
-            name: 'login',
-            path: '/user/login',
-            component: './user/Login',
-          },
-        ],
-      },
-      {
-        component: './404',
-      },
-    ],
-  },
-  {
     path: '/welcome',
     name: false,
     icon: 'smile',
@@ -35,16 +16,16 @@ export default [
     redirect: '/welcome',
   },
   {
-    name: '拓扑编辑器',
+    path: '/detail',
+    name: false,
     icon: 'smile',
-    path: '/editorkoni',
-    component: './EditorKoni',
+    component: './charts'
   },
   {
-    name: '基础详情页',
+    path: '/detail/:id.html',
+    name: false,
     icon: 'smile',
-    path: '/profilebasic',
-    component: './ProfileBasic',
+    component: './charts'
   },
   {
     component: './404',

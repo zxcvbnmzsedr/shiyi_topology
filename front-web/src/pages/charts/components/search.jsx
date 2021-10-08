@@ -1,9 +1,8 @@
-import {Modal, Input} from 'antd';
+import {Modal} from 'antd';
 
 import {queryNode} from "../../../services/chart/api";
 import React from "react";
 import styles from "../index.less";
-import {ProductItem} from "../../../components/search/ProductItem";
 import {Autocomplete} from "../../../components/search/Autocomplete";
 
 const Search = ({changeId, onSelect, visible, onConfirm, ...rest}) => {

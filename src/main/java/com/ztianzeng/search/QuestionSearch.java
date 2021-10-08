@@ -48,6 +48,8 @@ public class QuestionSearch {
      */
     public void addQuestion(List<Question> questionList) {
         try {
+            // 清空索引重新建立
+            searchClient.deleteIndex(QUESTION_SEARCH_INDEX);
             var data = questionList.stream().map(a -> {
                 Tmp convert = Convert.convert(Tmp.class, a);
                 convert.setIdCopy(a.getId());

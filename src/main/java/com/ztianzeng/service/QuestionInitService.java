@@ -288,6 +288,7 @@ public class QuestionInitService {
      * 建立问题的查询索引
      */
     private void createQuestionIndex(Collection<QuestionDefinition> questionDefinitions) {
+
         var questions = questionDefinitions.stream()
                 .map(a -> {
                     var convert = Convert.convert(Question.class, a);

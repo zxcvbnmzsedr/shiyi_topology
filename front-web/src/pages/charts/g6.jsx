@@ -5,9 +5,9 @@ import {getData} from "../../services/chart/api";
 import {Legend, Toolbar,} from '@antv/graphin-components';
 import Graphin, {Behaviors, GraphinContext} from '@antv/graphin';
 import {AimOutlined, DeleteOutlined, SearchOutlined, ZoomInOutlined, ZoomOutOutlined} from '@ant-design/icons';
-import Search from "./compents/search";
+import Search from "./components/search";
 import iconFrontLoader from "../../components/IconFont/IconFontLoader";
-// 注册到 Graphin 中
+
 const icons = Graphin.registerFontFamily(iconFrontLoader);
 
 const {
@@ -19,14 +19,12 @@ const {
 const fittingString = (str, maxWidth, fontSize) => {
   let currentWidth = 0;
   let res = str;
-  const pattern = new RegExp('[\u4E00-\u9FA5]+'); // distinguish the Chinese charactors and letters
+  const pattern = new RegExp('[\u4E00-\u9FA5]+');
   str.split('').forEach((letter, i) => {
     if (currentWidth > maxWidth) return;
     if (pattern.test(letter)) {
-      // Chinese charactors
       currentWidth += fontSize;
     } else {
-      // get the width of single letter according to the fontSize
       currentWidth += G6.Util.getLetterWidth(letter, fontSize);
     }
     if (currentWidth > maxWidth) {
