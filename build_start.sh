@@ -4,8 +4,8 @@ clean_front(){
   rm -rf front_web/dist
 }
 build_jar(){
-  gradle clean
-  gradle build -i --stacktrace
+  ./gradlew clean
+  ./gradlew build -i --stacktrace
 }
 build_docker(){
    docker-compose build --no-cache
