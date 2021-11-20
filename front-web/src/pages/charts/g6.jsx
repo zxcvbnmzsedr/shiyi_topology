@@ -160,9 +160,7 @@ const edgeStateStyles = {
   },
 };
 const G6Graph = (props) => {
-  const {data} = useRequest(() => {
-    return getData();
-  });
+  const {data} =  getData();
   const {changeId, id} = props
   const {edges, nodes} = data || {
     edges: [],
@@ -217,15 +215,12 @@ const G6Graph = (props) => {
   const handleSearch = () => {
     setIsModalVisible(true);
   }
-
   const handleOk = () => {
     setIsModalVisible(false);
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
   const handleSelect = (value) => {
     changeId(value)
     setIsModalVisible(false);

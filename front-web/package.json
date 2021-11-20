@@ -89,7 +89,8 @@
     "remark-mermaid": "^0.2.0",
     "umi": "^3.5.0",
     "umi-serve": "^1.9.10",
-    "vditor": "^3.8.7"
+    "vditor": "^3.8.7",
+    "yaml": "^1.10.2"
   },
   "homepage": ".",
   "devDependencies": {
