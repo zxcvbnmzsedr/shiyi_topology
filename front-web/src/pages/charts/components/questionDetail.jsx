@@ -26,7 +26,6 @@ const QuestionDetail = (props) => {
   };
   return (
     <div>
-      {/*<Editor content={content}/>*/}
       <ReactMarkdown
         className="markdown-body"
         children={content}
