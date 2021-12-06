@@ -2,7 +2,6 @@ import React, {useState} from "react"
 import {graphql} from "gatsby"
 import MindMap from "../components/mindmap";
 import Layout from "../components/common/layout";
-
 export default ({data, ...rest}) => {
 
     const nodes = JSON.parse(data.allIndexJson.nodes[0].tree)
