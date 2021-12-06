@@ -8,6 +8,7 @@ pluginManagement {
 }
 
 include 'front-web'
+include 'web'
 
 rootProject.name = 'shiyi_topology'
 
