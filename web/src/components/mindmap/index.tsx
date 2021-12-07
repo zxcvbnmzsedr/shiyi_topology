@@ -114,7 +114,7 @@ export class Markmap {
         this.g = this.svg.append('g').attr('class', `${this.state.id}-g`);
         this.updateStyle();
         // todo 暂时取消缩放
-        this.svg.call(this.zoom);
+        this.svg.call(this.zoom).on("wheel.zoom", null)
         this.revokers.push(refreshHook.tap(() => {
             this.setData();
         }));
@@ -548,7 +548,7 @@ const MindMap = ({root, nodeClick, initialTreeDepth = 4}) => {
             return;
         }
         markMapRef.current = Markmap.create(svgRef.current, {nodeClick: nodeClick, fitRatio: 1}, nodes)
-    }, [root /*&& root.href*/]);
+    }, [root]);
 
     return (
         <svg ref={svgRef}

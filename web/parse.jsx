@@ -1,15 +1,12 @@
 const fs = require('fs')
 const path = require('path')
+const root = './src/markdown-pages/'
 
-const dir = './src/markdown-pages/并发'
-const dirs = fs.readdirSync(dir, 'utf8')
-const readmeMDs = dirs.filter(file => file === 'README.md')
-if (readmeMDs.length === 0) {
-    return
-}
-const readmeMD = readmeMDs[0]
-// 加载文件内容并进行分析
-const pathname = path.join(dir, readmeMD)
+/**
+ * 获取文件的结构
+ * @param filePath 文件路径
+ * @returns {unknown[]|*[]}
+ */
 const getNavStructure = (filePath) => {
     const source = fs.readFileSync(filePath, 'utf8')
     const fileName = path.basename(filePath).split(".")[0]
@@ -125,26 +122,32 @@ const trimArrZero = (arr) => {
     }
     return arr.slice(start, end + 1)
 }
-const tokens = getNavStructure(pathname);
 
-const parseNode = (node) => {
+const parseNode = (dir, node) => {
     node.text = node.text.trim()
+    // 匹配[abc](123)这种
     if (node.text.match(/\[[\s\S]*?\]\([\s\S]*?\)/g)) {
         const text = node.text.match(/(?<=\[).+(?=\])/g)[0]
         // 根据连接寻找文件，然后衔接到node上
         const link = node.text.match(/(?<=\().+(?=\))/g)[0]
         const pathname = path.join(dir, link)
-        const children = buildTree(getNavStructure(pathname).filter(node => node.type === 'heading'))[0].child
+        node.href = path.join('/', path.basename(path.dirname(pathname)), path.basename(pathname).split(".md")[0])
+        const children = buildTree(dir, getNavStructure(pathname).filter(node => node.type === 'heading'))[0].child
         node.child.push(...children)
         node.text = text
     }
 }
-const buildTree = (list) => {
+/**
+ * 将list构造成树结构
+ * @param list
+ * @returns {*[]}
+ */
+const buildTree = (dir, list) => {
     let map = {}, node, tree = [], i;
     for (i = 0; i < list.length; i++) {
         map[list[i].listNo] = list[i];
         list[i].child = [];
-        parseNode(list[i])
+        parseNode(dir, list[i])
     }
     for (i = 0; i < list.length; i += 1) {
         node = list[i];
@@ -157,7 +160,29 @@ const buildTree = (list) => {
     }
     return tree;
 }
-console.log()
-const tree = buildTree(tokens)
-console.log(tree)
-fs.writeFileSync(path.join(dir, 'index.json'), JSON.stringify([{'tree': JSON.stringify(tree)}]))
+
+/**
+ * 1. 解析根目录，扫描所有文件夹
+ * 2. 文件夹下的README文件作为根文件，进行第一次解析
+ * 3. 递归解析README扩展出的文件
+ */
+
+function parse() {
+    const dirs = fs.readdirSync(root);
+    for (let dir of dirs) {
+        dir = path.join(root, dir);
+        const readmeMDs = fs.readdirSync(dir).filter(file => file === 'README.md')
+        if (readmeMDs.length === 0) {
+            continue
+        }
+        const readmePath = path.join(dir, readmeMDs[0])
+        const tokens = getNavStructure(readmePath);
+        const tree = buildTree(dir, tokens)
+        fs.writeFileSync(path.join(dir, 'index.json'), JSON.stringify([{
+            'tree': JSON.stringify(tree),
+            'name': path.basename(dir)
+        }]))
+    }
+}
+
+parse();
