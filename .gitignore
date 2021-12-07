@@ -1,2 +1,5 @@
 /web/public/
 /web/node_modules/
+.idea
+/web/.cache/
+/.gradle/
