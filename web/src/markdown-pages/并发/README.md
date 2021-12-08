@@ -65,7 +65,7 @@
 
 ### 线程协作
 
-+ 
++ [使用CompletableFuture解决"旅游平台"问题](使用CompletableFuture解决旅游平台问题.md)
 
 ## 底层原理
 
