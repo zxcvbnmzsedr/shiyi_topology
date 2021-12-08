@@ -6,7 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    working-directory: web
+    defaults:
+      run:
+        working-directory: web
     steps:
       - name: Checkout master
         uses: actions/checkout@v2
