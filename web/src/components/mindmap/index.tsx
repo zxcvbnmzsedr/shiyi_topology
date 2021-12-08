@@ -513,26 +513,26 @@ ${this.getStyleContent()}
 }
 
 
-function handleNodes(parent, root, initialTreeDepth) {
+function handleNodes(parent, root, initialTreeDepth, count) {
     const node: INode = {
         d: root.level,
         t: root.type,
         p: {
             ...parent,
-            f: root.level >= initialTreeDepth
+            f: count >= initialTreeDepth
         },
         v: `<a href=${root.href}>${root.text}</a>`,
     };
     if (root.child && root.child.length > 0) {
         node.c = []
         for (const c of root.child) {
-            node.c.push(handleNodes(node, c, initialTreeDepth))
+            node.c.push(handleNodes(node, c, initialTreeDepth, count + 1))
         }
     }
     return node;
 }
 
-const MindMap = ({root, nodeClick, initialTreeDepth = 4}) => {
+const MindMap = ({root, nodeClick, initialTreeDepth = 3}) => {
     const svgRef = React.useRef();
     const markMapRef = React.useRef<Markmap>();
     // const transformer = new Transformer(allNodes);
@@ -540,7 +540,7 @@ const MindMap = ({root, nodeClick, initialTreeDepth = 4}) => {
         if (!svgRef.current) {
             return
         }
-        const nodes = handleNodes(null, root, initialTreeDepth);
+        const nodes = handleNodes(null, root, initialTreeDepth,0);
 
         if (markMapRef.current) {
             markMapRef.current.setData(nodes);

@@ -10,22 +10,21 @@ import {okaidia} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import DefaultLayout from "../components/common/layout";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import Mermaid from '../components/mermaid'
 
-export default ({data}) => {
+const Post = ({data}) => {
     const rawMarkdownBody = data.markdownRemark
     return (
         <DefaultLayout>
-
-
             <div className={style.markdownBody}>
                 <ReactMarkdown
                     className="markdown-body"
                     children={rawMarkdownBody.rawMarkdownBody}
                     plugins={[remarkGfm]}
                     components={{
-                        img({...props}) {
+                        img({alt, ...props}) {
                             return <Zoom>
-                                <img {...props}/>
+                                <img {...props} alt={alt}/>
                             </Zoom>
                         },
                         // 重写URL ，让他不用跳来跳去
@@ -34,6 +33,15 @@ export default ({data}) => {
                                 <a href={href.split('.md')[0]} {...props}>{children}</a>
                             )
                         }, code: ({inline, children, className, ...props}) => {
+                            const txt = children[0];
+                            if (
+                                txt &&
+                                typeof txt === "string" &&
+                                typeof className === "string" &&
+                                /^language-mermaid/.test(className.toLocaleLowerCase())
+                            ) {
+                                return <Mermaid chart={txt}/>;
+                            }
                             const match = /language-(\w+)/.exec(className || '')
                             return !inline && match ? (
                                 <SyntaxHighlighter
@@ -58,7 +66,7 @@ export default ({data}) => {
         </DefaultLayout>
     )
 }
-
+export default Post
 export const query = graphql`
     query($slug: String!) {
         markdownRemark(fields: { slug: { eq: $slug } }) {
