@@ -12,18 +12,18 @@ jobs:
         with:
           ref: master
       - name: use Node.js 17.0.1
-          uses: actions/setup-node@v2
-          with:
-            node-version: 17.0.1
-            - name: yarn
-              run: yarn
-            - name: build
-              run: yarn build
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17.0.1
+      - name: yarn
+        run: yarn
+      - name: build
+        run: yarn build
       - name: setup aliyun oss
-          uses: manyuanrong/setup-ossutil@master
-          with:
-            endpoint: ${{ secrets.OSS_END_POINT }}
-            access-key-id: ${{ secrets.OSS_KEY_ID }}
-            access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
-            - name: cp aliyun oss
-              run: ossutil cp -rf public oss://${{ secrets.OSS_BUCKET_NAME }}
+        uses: manyuanrong/setup-ossutil@master
+        with:
+          endpoint: ${{ secrets.OSS_END_POINT }}
+          access-key-id: ${{ secrets.OSS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
+      - name: cp aliyun oss
+        run: ossutil cp -rf public oss://${{ secrets.OSS_BUCKET_NAME }}
