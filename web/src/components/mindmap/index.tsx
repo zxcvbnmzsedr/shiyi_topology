@@ -152,12 +152,25 @@ ${extraStyle}
         this.g.attr('transform', transform);
     }
 
-    handleClick(e, d: IMarkmapFlexTreeItem): void {
-        const {data} = d;
+    /**
+     * 递归展开所有的节点
+     * @param data
+     */
+    expend(data) {
         data.p = {
             ...data.p,
             f: !data.p?.f,
         };
+        if (data.c) {
+            for (let c of data.c) {
+                this.expend(c)
+            }
+        }
+    }
+
+    handleClick(e, d: IMarkmapFlexTreeItem): void {
+        const {data} = d;
+        this.expend(data)
         console.log(d.data)
         this.renderData(d.data);
     }
@@ -514,12 +527,21 @@ ${this.getStyleContent()}
 
 
 function handleNodes(parent, root, initialTreeDepth, count) {
+    let f = false;
+
+    if (count >= initialTreeDepth) {
+        f = true
+        // // 如果父类是合并的，则子类全部展开
+        // if (parent?.p?.f) {
+        //     f = false
+        // }
+    }
     const node: INode = {
         d: root.level,
         t: root.type,
         p: {
             ...parent,
-            f: count >= initialTreeDepth
+            f: f
         },
         v: `<a href=${root.href}>${root.text}</a>`,
     };
@@ -540,7 +562,7 @@ const MindMap = ({root, nodeClick, initialTreeDepth = 3}) => {
         if (!svgRef.current) {
             return
         }
-        const nodes = handleNodes(null, root, initialTreeDepth,0);
+        const nodes = handleNodes(null, root, initialTreeDepth, 0);
 
         if (markMapRef.current) {
             markMapRef.current.setData(nodes);
