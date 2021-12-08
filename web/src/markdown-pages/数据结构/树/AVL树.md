@@ -31,7 +31,7 @@
 
 LL失去平衡的情况，可以通过一次旋转让AVL树恢复平衡。如下图:
 
-![LL旋转](http://java-engineer.ztianzeng.com/uPic/LL%E6%97%8B%E8%BD%AC.png)
+![LL旋转](https://www.shiyitopo.tech/uPic/LL%E6%97%8B%E8%BD%AC.png)
 
 LL旋转是围绕"失去平衡的AVL根节点"进行的,也就是节点3.
 
@@ -52,7 +52,7 @@ void LL形旋转(AVLNode node5){
 
 **RR形**
 
-![RR旋转](http://java-engineer.ztianzeng.com/uPic/RR%E6%97%8B%E8%BD%AC.png)
+![RR旋转](https://www.shiyitopo.tech/uPic/RR%E6%97%8B%E8%BD%AC.png)
 
 RR形的旋转，和LL的类似，只是往相反的地方旋转而已。
 
@@ -73,7 +73,7 @@ void RR形旋转(AVLNode node2){
 
 **LR形**
 
-![LR旋转](http://java-engineer.ztianzeng.com/uPic/LR%E6%97%8B%E8%BD%AC.png)
+![LR旋转](https://www.shiyitopo.tech/uPic/LR%E6%97%8B%E8%BD%AC.png)
 
 **伪代码:**
 

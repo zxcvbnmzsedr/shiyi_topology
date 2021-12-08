@@ -6,11 +6,11 @@ ThreadLocal的保存变量，是维护在Thread中的。
 
 但是由于每个线程在访问ThreadLocal对象之后，都会在Thread中的Map中留下ThreadLocal对象与具体实例的引用，如果不删除这些引用则这些ThreadLocal则不能进行回收，会造成内存泄漏
 
-![ThreadLocal](http://java-engineer.ztianzeng.com/uPic/ThreadLocal.png)
+![ThreadLocal](https://www.shiyitopo.tech/uPic/ThreadLocal.png)
 
 
 
-![img](http://java-engineer.ztianzeng.com/uPic/Cgq2xl5Pld-AHFhJAADLtGXmSxc833.png)
+![img](https://www.shiyitopo.tech/uPic/Cgq2xl5Pld-AHFhJAADLtGXmSxc833.png)
 
 ## 内存泄漏的案例
 

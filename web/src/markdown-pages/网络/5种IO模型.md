@@ -29,7 +29,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 - 要想实现网络通信，至少需要一对 Socket，其中一个运行在客户端，称之为 Client Socket；另一个运行在服务器端，称之为 Server Socket。
 - Socket 之间的连接过程可以分为三个步骤：（1）服务器监听；（2）客户端连接；（3）连接确认。
 
-![Socket](http://java-engineer.ztianzeng.com/uPic/1460000039898782.png)
+![Socket](https://www.shiyitopo.tech/uPic/1460000039898782.png)
 
 ### 缓冲区
 
@@ -39,7 +39,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 - 通过 Socket 接收数据也是如此，也是从输入缓冲区中读取数据，而不是直接从网络中读取。
 
-  ![Socket缓冲区](http://java-engineer.ztianzeng.com/uPic/1460000039898783.png)
+  ![Socket缓冲区](https://www.shiyitopo.tech/uPic/1460000039898783.png)
 
 就好比，电话。
 
@@ -49,7 +49,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 而这部电话很有特点，接通了就不讲话，就是玩。
 
-![image-20210924170048865](http://java-engineer.ztianzeng.com/uPic/image-20210924170048865.png)
+![image-20210924170048865](https://www.shiyitopo.tech/uPic/image-20210924170048865.png)
 
 了解概念之后，来理解IO模型就比较容易了。
 
@@ -75,7 +75,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 
 
-![阻塞式 IO 模型](http://java-engineer.ztianzeng.com/uPic/1460000039898785.png)
+![阻塞式 IO 模型](https://www.shiyitopo.tech/uPic/1460000039898785.png)
 
 ### 非阻塞IO
 
@@ -101,7 +101,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 6、完成后，返回成功提示。
 
-![非阻塞式 IO 模型](http://java-engineer.ztianzeng.com/uPic/1460000039898786.png)
+![非阻塞式 IO 模型](https://www.shiyitopo.tech/uPic/1460000039898786.png)
 
 ### IO多路复用
 
@@ -109,11 +109,11 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 请秘书，让秘书去，那个秘书就是下面说的Select。秘书挨个去听，听到电话里面有声音之后，在通知小蓝进行处理。
 
-![image-20210924170552263](http://java-engineer.ztianzeng.com/uPic/image-20210924170552263.png)
+![image-20210924170552263](https://www.shiyitopo.tech/uPic/image-20210924170552263.png)
 
 >  将多个应用进程的 Socket 注册到一个 Select（多路复用器）上，然后使用一个进程来监听该 Select（该操作会阻塞），Select 会监听所有注册进来的 Socket。只要有一个 Socket 的数据准备好，就会返回该Socket。再由应用进程发起 IO 系统调用，来完成数据读取。
 
-![IO 多路复用模型](http://java-engineer.ztianzeng.com/uPic/1460000039898787.png)
+![IO 多路复用模型](https://www.shiyitopo.tech/uPic/1460000039898787.png)
 
 
 
@@ -125,7 +125,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 >  可以为 Socket 开启信号驱动 IO 功能，应用进程需向内核注册一个信号处理程序，该操作并立即返回。当内核中有数据准备好，会发送一个信号给应用进程，应用进程便可以在信号处理程序中发起 IO 系统调用，来完成数据读取了。
 
-![信号驱动 IO 模型](http://java-engineer.ztianzeng.com/uPic/1460000039898788.png)
+![信号驱动 IO 模型](https://www.shiyitopo.tech/uPic/1460000039898788.png)
 
 ### 异步IO
 
@@ -135,7 +135,7 @@ socket 是Linux中的套接字，是计算机网络中进程间进行双向通�
 
 > 应用进程发起 IO 系统调用后，会立即返回。当内核中数据完全准备后，并且也复制到了用户空间，会产生一个信号来通知应用进程。
 
-![异步 IO 模型](http://java-engineer.ztianzeng.com/uPic/1460000039898789.png)
+![异步 IO 模型](https://www.shiyitopo.tech/uPic/1460000039898789.png)
 
 **从上述五种 IO 模型可以看出，应用进程对内核发起 IO 系统调用后，内核会经过两个阶段来完成数据的传输：**
 

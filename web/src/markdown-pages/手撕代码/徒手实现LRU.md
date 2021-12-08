@@ -68,7 +68,7 @@ Letcode上面也有对应的面试题: https://leetcode-cn.com/problems/lru-cach
 
 **所以，我们得让哈希表和链表结合一下，成长一下，形成一个新的数据结构，那就是：哈希链表，LinkedHashMap。**
 
-![img](http://java-engineer.ztianzeng.com/uPic/1460000038714635.png)
+![img](https://www.shiyitopo.tech/uPic/1460000038714635.png)
 
 借助这个结构，我们再来分析一下上面的三个条件：
 

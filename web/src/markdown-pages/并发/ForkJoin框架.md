@@ -8,8 +8,7 @@ Fork/Join框架，是JDK7中加入的 一个线程类。Fork/Join是基于分治
 
 将大任务拆分成一个个子任务，然后join在一起，最后输出结果。
 
-![forkjoin流程](http://java-engineer.ztianzeng.com/uPic/forkjoin%E6%B5%81%E7%A8%8B.png)
-
+![forkjoin流程](https://www.shiyitopo.tech/uPic/forkjoin%E6%B5%81%E7%A8%8B.png)
 
 
 伪代码就是这样:
@@ -133,7 +132,7 @@ JDK基于ForkJoinTask提供了`RecursiveTask`、`RecursiveAction`、`CountedComp
 
 queue2在执行完之后，会将queue0的task，给拉入到自己的线程下进行运行
 
-![forkjoin-工作窃取](http://java-engineer.ztianzeng.com/uPic/forkjoin-%E5%B7%A5%E4%BD%9C%E7%AA%83%E5%8F%96.png)
+![forkjoin-工作窃取](https://www.shiyitopo.tech/uPic/forkjoin-%E5%B7%A5%E4%BD%9C%E7%AA%83%E5%8F%96.png)
 
 1. ForkJoinPool 的每个工作线程都维护着一个工作队列（WorkQueue），这是一个**双端队列（Deque）**，里面存放的对象是任务（**ForkJoinTask**）。
 
@@ -149,7 +148,7 @@ queue2在执行完之后，会将queue0的task，给拉入到自己的线程下�
 
 ### 执行流程
 
-![forkjoin工作流程](http://java-engineer.ztianzeng.com/uPic/forkjoin%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
+![forkjoin工作流程](https://www.shiyitopo.tech/uPic/forkjoin%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
 
 上图画的就是forkjoin框架大体的运行过程。
 
@@ -203,5 +202,5 @@ public final ForkJoinTask<V> fork() {
 
 是因为加入的任务，不知道处于哪个队列的哪个位置，如果是top位置直接等待即可，如果不是则需要等待执行到这个任务才能获取结果
 
-![img](http://java-engineer.ztianzeng.com/uPic/java-thread-x-forkjoin-6.png)
+![img](https://www.shiyitopo.tech/uPic/java-thread-x-forkjoin-6.png)
 

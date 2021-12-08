@@ -54,7 +54,7 @@ ZipList的总体布局如下:
 
 [involution: 什么是小端存储 -> 大小端存储介绍]
 
-![redis_ziplist_结构](http://java-engineer.ztianzeng.com/uPic/redis_ziplist_%E7%BB%93%E6%9E%84.png)
+![redis_ziplist_结构](https://www.shiyitopo.tech/uPic/redis_ziplist_%E7%BB%93%E6%9E%84.png)
 
 ```shell
 typedef struct zlentry {

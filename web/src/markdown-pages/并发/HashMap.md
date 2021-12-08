@@ -4,7 +4,7 @@
 
 ## HashMap实现原理
 
-![img](http://java-engineer.ztianzeng.com/uPic/e4a19398.png)
+![img](https://www.shiyitopo.tech/uPic/e4a19398.png)
 
 HashMap采用Entry数组来存储key-value键值对，每个键值对组成了Node的实体，Node是一个单向链表的结构，具有next指针，指向下一个Node实体。
 
@@ -90,11 +90,11 @@ static int indexFor(int h, int length) {  //jdk1.7的源码，jdk1.8没有这个
 
 下面举例说明下，n为table的长度。
 
-![img](http://java-engineer.ztianzeng.com/uPic/45205ec2.png)
+![img](https://www.shiyitopo.tech/uPic/45205ec2.png)
 
 #### 2. 分析HashMap的put方法
 
-![img](http://java-engineer.ztianzeng.com/uPic/d669d29c.png)
+![img](https://www.shiyitopo.tech/uPic/d669d29c.png)
 
 ①.判断键值对数组table[i]是否为空或为null，否则执行resize()进行扩容；
 

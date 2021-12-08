@@ -24,7 +24,7 @@ Array有自动扩容机制，如果发现数组满了，会自动扩容到原本
 
 **扩容时，会将老数组的元素复制一份到新的数组中，这个操作的代价很高。尽量避免**
 
-![ArrayList](http://java-engineer.ztianzeng.com/uPic/ArrayList.png)
+![ArrayList](https://www.shiyitopo.tech/uPic/ArrayList.png)
 
 ## 为什么扩容是1.5倍
 

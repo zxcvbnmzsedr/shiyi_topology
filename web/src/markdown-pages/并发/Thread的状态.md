@@ -1,6 +1,6 @@
 # Thread的状态
 
-![image-20211101163645288](http://java-engineer.ztianzeng.com/uPic/image-20211101163645288.png)
+![image-20211101163645288](https://www.shiyitopo.tech/uPic/image-20211101163645288.png)
 
 ## New
 

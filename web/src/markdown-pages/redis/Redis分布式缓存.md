@@ -24,7 +24,7 @@
 
 ### 最常见的策略
 
-![img](http://java-engineer.ztianzeng.com/uPic/db-and-cache-01-01.jpg)
+![img](https://www.shiyitopo.tech/uPic/db-and-cache-01-01.jpg)
 
 #### 优点剖析
 
@@ -64,7 +64,7 @@
 
 为了保证“数据最终一致性”，我们引入binlog，通过解析binlog来刷新缓存，这样即使刷新失败，依然可以进行日志回放，再次刷新缓存
 
-![img](http://java-engineer.ztianzeng.com/uPic/db-and-cache-02-01.jpg)
+![img](https://www.shiyitopo.tech/uPic/db-and-cache-02-01.jpg)
 
 ### 写流程：
 
@@ -104,7 +104,7 @@
 为什么复杂业务就不行呢？我举个例子
 我们假设 **一个订单 = A表信息 + B表信息**
 
-![img](http://java-engineer.ztianzeng.com/uPic/db-and-cache-02-02.jpg)
+![img](https://www.shiyitopo.tech/uPic/db-and-cache-02-02.jpg)
 
 由于A表先变化，经过1，2，3步后，线程1获取了A’B （A表是新数据，B表的老数据），当线程1还没来得及刷新缓存时，并发发生了：
 
@@ -116,7 +116,7 @@
 
 - **针对单库多表单次更新的改进：利用事务**
 
-![](http://java-engineer.ztianzeng.com/uPic/db-and-cache-02-03.jpg)
+![](https://www.shiyitopo.tech/uPic/db-and-cache-02-03.jpg)
 
 当AB表的更新发生在一个事务内时，不管线程1、线程2如何读取，他们都能获取两张表的最新数据，所以刷新缓存的数据都是符合要求的。
 
@@ -126,7 +126,7 @@
 
 - **针对多表多次更新的改进：增量更新**
 
-![img](http://java-engineer.ztianzeng.com/uPic/db-and-cache-02-04.jpg)
+![img](https://www.shiyitopo.tech/uPic/db-and-cache-02-04.jpg)
 
 每张表的更新，在同步缓存时，只获取该表的字段覆盖缓存。
 
@@ -162,7 +162,7 @@
 
 那我们的工作呢，就是加上时间差，实现方式：**我们加一个缓存，将近期被修改的数据进行标记锁定。读的时候，标记锁定的数据强行走DB，没锁定的数据，先走缓存**
 
-![img](http://java-engineer.ztianzeng.com/uPic/db-and-cache-04-01.jpg)
+![img](https://www.shiyitopo.tech/uPic/db-and-cache-04-01.jpg)
 
 ### 写流程：
 

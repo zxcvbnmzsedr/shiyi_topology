@@ -6,7 +6,7 @@
 
 其中类加载的过程包括了`加载`、`验证`、`准备`、`解析`、`初始化`五个阶段。在这五个阶段中，`加载`、`验证`、`准备`和`初始化`这四个阶段发生的顺序是确定的，*而`解析`阶段则不一定，它在某些情况下可以在初始化阶段之后开始，这是为了支持Java语言的运行时绑定(也成为动态绑定或晚期绑定)*。另外注意这里的几个阶段是按顺序开始，而不是按顺序进行或完成，因为这些阶段通常都是互相交叉地混合进行的，通常在一个阶段执行的过程中调用或激活另一个阶段。
 
-![img](http://java-engineer.ztianzeng.com/uPic/java_jvm_classload_2.png)
+![img](https://www.shiyitopo.tech/uPic/java_jvm_classload_2.png)
 
 ### [¶](#类的加载-查找并加载类的二进制数据)类的加载: 查找并加载类的二进制数据
 
@@ -16,7 +16,7 @@
 - 将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。
 - 在Java堆中生成一个代表这个类的java.lang.Class对象，作为对方法区中这些数据的访问入口。
 
-![img](http://java-engineer.ztianzeng.com/uPic/java_jvm_classload_1.png)
+![img](https://www.shiyitopo.tech/uPic/java_jvm_classload_1.png)
 
 相对于类加载的其他阶段而言，*加载阶段(准确地说，是加载阶段获取类的二进制字节流的动作)是可控性最强的阶段*，因为开发人员既可以使用系统提供的类加载器来完成加载，也可以自定义自己的类加载器来完成加载。
 
@@ -108,7 +108,7 @@
 
 ### [¶](#类加载器的层次) 类加载器的层次
 
-> ![img](http://java-engineer.ztianzeng.com/uPic/java_jvm_classload_3-20211015171013965.png)
+> ![img](https://www.shiyitopo.tech/uPic/java_jvm_classload_3-20211015171013965.png)
 >
 > 注意: 这里父类加载器并不是通过继承关系来实现的，而是采用组合实现的。
 

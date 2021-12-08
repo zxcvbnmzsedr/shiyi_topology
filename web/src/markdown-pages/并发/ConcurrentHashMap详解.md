@@ -20,7 +20,7 @@ ConcurrentHashMap在JDK 1.7和1.8中的实现并不相同，所以我们分开�
 
 ConcurrentHashMap本质上是一个Segment 数组，Segment通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。
 
-![ConcurrentHashMap](http://java-engineer.ztianzeng.com/uPic/ConcurrentHashMap.png)
+![ConcurrentHashMap](https://www.shiyitopo.tech/uPic/ConcurrentHashMap.png)
 
 ### 初始化
 ### 初始化
@@ -391,7 +391,7 @@ public V get(Object key) {
 
 在 Java 8 中，几乎完全重写了 ConcurrentHashMap，代码量从原来 Java 7 中的 1000 多行，变成了现在的 6000 多行，所以也大大提高了源码的阅读难度。而为了方便我们理解，我们还是先从整体的结构示意图出发，看一看总体的设计思路，然后再去深入细节。
 
-![1.8数据结构](http://java-engineer.ztianzeng.com/uPic/1.8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png)
+![1.8数据结构](https://www.shiyitopo.tech/uPic/1.8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png)
 
 图中的节点有三种类型: 
 

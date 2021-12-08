@@ -117,7 +117,7 @@ public interface RunnableFuture<V> extends Runnable, Future<V> {
 
 他们的关系入下图所示:
 
-![image-20211207205138417](http://java-engineer.ztianzeng.com/uPic/image-20211207205138417.png)
+![image-20211207205138417](https://www.shiyitopo.tech/uPic/image-20211207205138417.png)
 
 从此可以看出，FutureTask既可以作为Runable被线程执行，又可以作为Future得到Callable的返回值。
 

@@ -11,6 +11,7 @@ const DefaultLayout = ({data, children, bodyClass, isHome}) => {
     return <>
         <Helmet>
             <body className={bodyClass}/>
+
         </Helmet>
 
         <div className="viewport">

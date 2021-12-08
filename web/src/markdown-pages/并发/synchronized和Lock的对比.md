@@ -10,11 +10,11 @@
 
 对于 synchronized 而言，线程 A 在进入 synchronized 块之前或在 synchronized 块内进行操作，对于后续的获得同一个 monitor 锁的线程 B 是可见的，也就是线程 B 是可以看到线程 A 之前的操作的，这也体现了 happens-before 针对 synchronized 的一个原则。
 
-![绘图2](http://java-engineer.ztianzeng.com/uPic/%E7%BB%98%E5%9B%BE2.png)
+![绘图2](https://www.shiyitopo.tech/uPic/%E7%BB%98%E5%9B%BE2.png)
 
 而对于 Lock 而言，它和 synchronized 是一样，都可以保证可见性，如图所示，在解锁之前的所有操作对加锁之后的所有操作都是可见的。
 
-![LockHappensBefor](http://java-engineer.ztianzeng.com/uPic/LockHappensBefor.png)
+![LockHappensBefor](https://www.shiyitopo.tech/uPic/LockHappensBefor.png)
 
 ### 都可重入
 

@@ -98,7 +98,7 @@ synchronized (this) {
 
 由于synchronized的加锁是通过对象头中的mark-word中的标记来判断的，所以我们必须得先了解对象结构。
 
-![synchronized原理](http://java-engineer.ztianzeng.com/uPic/synchronized%E5%8E%9F%E7%90%86.png)
+![synchronized原理](https://www.shiyitopo.tech/uPic/synchronized%E5%8E%9F%E7%90%86.png)
 
 在Hotspot虚拟机中，有其对应的对象结构:
 
@@ -121,4 +121,4 @@ unused:21 size:35 -->| cms_free:1 unused:7 ------------------>| (COOPs && CMS fr
 
 **整个加锁逻辑都在这里，最好自己手绘一遍，以领会其精神**
 
-![加锁过程](http://java-engineer.ztianzeng.com/uPic/%E5%8A%A0%E9%94%81%E8%BF%87%E7%A8%8B.png)
+![加锁过程](https://www.shiyitopo.tech/uPic/%E5%8A%A0%E9%94%81%E8%BF%87%E7%A8%8B.png)

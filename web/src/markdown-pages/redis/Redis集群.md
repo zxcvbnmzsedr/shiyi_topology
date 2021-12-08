@@ -10,7 +10,7 @@
 
 [involution: Mysql主从复制 -> Mysql主从复制]
 
-![image-20210920222454496](http://java-engineer.ztianzeng.com/uPic/image-20210920222454496.png)
+![image-20210920222454496](https://www.shiyitopo.tech/uPic/image-20210920222454496.png)
 
 通过持久化功能，Redis保证了即使在服务器重启的情况下也不会丢失（或少量丢失）数据，因为持久化会把内存中数据保存到硬盘上，重启会从硬盘上加载数据。 但是由于数据是存储在一台服务器上的，如果这台服务器出现硬盘故障等问题，也会导致数据丢失。
 
@@ -89,7 +89,7 @@ redis cluster集群环境下，假如现在A客户端想要加锁，它会根据
 
 哨兵模式是一种特殊的模式，首先 Redis 提供了哨兵的命令，**哨兵是一个独立的进程，作为进程，它会独立运行。其原理是哨兵通过发送命令，等待Redis服务器响应，从而监控运行的多个 Redis 实例**。
 
-![单哨兵](http://java-engineer.ztianzeng.com/uPic/1460000022808580.png)
+![单哨兵](https://www.shiyitopo.tech/uPic/1460000022808580.png)
 
 
 
@@ -133,7 +133,7 @@ Redis Cluster是一种服务器 Sharding 技术，3.0版本开始正式提供。
 
 Redis 的哨兵模式基本已经可以实现高可用，读写分离 ，但是在这种模式下每台 Redis 服务器都存储相同的数据，很浪费内存，所以在 redis3.0上加入了 Cluster 集群模式，实现了 Redis 的分布式存储，**也就是说每台 Redis 节点上存储不同的内容**。
 
-![image-20200531184321294](http://java-engineer.ztianzeng.com/uPic/1460000022808584.png)
+![image-20200531184321294](https://www.shiyitopo.tech/uPic/1460000022808584.png)
 
 在这个图中，每一个蓝色的圈都代表着一个 redis 的服务器节点。它们任何两个节点之间都是相互连通的。客户端可以与任何一个节点相连接，然后就可以访问集群中的任何一个节点。对其进行存取和其他操作。
 

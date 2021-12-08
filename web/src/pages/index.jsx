@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import {graphql} from "gatsby"
 import MindMap from "../components/mindmap";
 import Layout from "../components/common/layout";

@@ -12,5 +12,5 @@ JVM可以从5个方面来循序渐进的了解。
 4. JMM，用于处理类运行过程中的并发问题
 5. GC,由于Java无需手动释放内存，需要通过垃圾收集器手动回收创建出来的对象
 
-![JVM](http://java-engineer.ztianzeng.com/uPic/JVM.png)
+![JVM](https://www.shiyitopo.tech/uPic/JVM.png)
 

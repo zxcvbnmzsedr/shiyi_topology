@@ -2,7 +2,7 @@
 
 LinkedList既实现了List接口也实现了Deque的接口，也就意味着LinkedList可以即当做顺序容器，也能够用来做队列。
 
-![基本结构](http://java-engineer.ztianzeng.com/uPic/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.png)
+![基本结构](https://www.shiyitopo.tech/uPic/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.png)
 
 由于LinkedList维护了头尾指针，因此非常容易的能够获取到头尾的元素。
 

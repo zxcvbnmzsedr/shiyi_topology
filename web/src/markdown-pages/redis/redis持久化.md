@@ -18,7 +18,7 @@
 
 
 
-![img](http://java-engineer.ztianzeng.com/uPic/1460000022911658.jpeg)
+![img](https://www.shiyitopo.tech/uPic/1460000022911658.jpeg)
 
 ### 执行流程
 
@@ -67,7 +67,7 @@ RDB持久化指的是在满足一定的触发条件时（在一个的时间间�
 
 [involution: 写时复制的原理是什么? -> Linux写时复制]
 
-![img](http://java-engineer.ztianzeng.com/uPic/1460000022911660.png)
+![img](https://www.shiyitopo.tech/uPic/1460000022911660.png)
 
 
 
