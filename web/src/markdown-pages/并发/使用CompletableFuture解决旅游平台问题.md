@@ -76,7 +76,7 @@ public class PriceDemo {
 
 这就是使用线程池去实现的最基础的方案。
 
-## CountDownLatch
+## [CountDownLatch](CountDownLatch详解.md)
 
 我们可以采用CountDownLatch去对上面的代码进行一个优化。
 

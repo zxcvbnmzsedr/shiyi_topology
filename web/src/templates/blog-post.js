@@ -11,9 +11,11 @@ import DefaultLayout from "../components/common/layout";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import Mermaid from '../components/mermaid'
+import CopyButton from "../components/copybutton";
 
 const Post = ({data}) => {
     const rawMarkdownBody = data.markdownRemark
+
     return (
         <DefaultLayout>
             <div className={style.markdownBody}>
@@ -44,13 +46,19 @@ const Post = ({data}) => {
                             }
                             const match = /language-(\w+)/.exec(className || '')
                             return !inline && match ? (
-                                <SyntaxHighlighter
-                                    children={String(children).replace(/\n$/, '')}
-                                    language={match[1]}
-                                    style={okaidia}
-                                    PreTag="div"
-                                    {...props}
-                                />
+                                <div style={{
+                                    position: "relative",
+                                }}>
+                                    <SyntaxHighlighter
+                                        children={String(children).replace(/\n$/, '')}
+                                        language={match[1]}
+                                        style={okaidia}
+                                        PreTag="div"
+                                        {...props}
+                                    >
+                                    </SyntaxHighlighter>
+                                    <CopyButton valueToCopy={txt}/>
+                                </div>
                             ) : (
                                 <code className={className} {...props}>
                                     {children}
