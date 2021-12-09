@@ -2,8 +2,9 @@ import React from "react"
 import {graphql} from "gatsby"
 import MindMap from "../components/mindmap";
 import Layout from "../components/common/layout";
+import * as styles from './index.module.css'
 
-export default ({data, ...rest}) => {
+export default ({data}) => {
 
     // const nodes = JSON.parse(data.allIndexJson.nodes[0].tree)
     const nodes = data.allIndexJson.nodes.map(node => {
@@ -19,7 +20,7 @@ export default ({data, ...rest}) => {
                 nodes.map(node => {
                     console.log(node)
                     return <>
-                        <h1>{node.name}</h1>
+                        <h1 className={styles.mindTitle}>{node.name}</h1>
                         <MindMap root={node.tree}/>
                     </>
                 })
