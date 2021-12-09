@@ -66,6 +66,8 @@
 ### 线程协作
 
 + [使用CompletableFuture解决"旅游平台"问题](使用CompletableFuture解决旅游平台问题.md)
++ [使用CyclicBarrier解决"团建"问题](使用CyclicBarrier解决团建问题.md)
++ [使用Semaphore进行限流](Semaphore信号量.md)
 
 ## 底层原理
 
