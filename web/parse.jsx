@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const root = './src/markdown-pages/'
-
 /**
  * 获取文件的结构
  * @param filePath 文件路径
@@ -122,7 +121,6 @@ const trimArrZero = (arr) => {
     }
     return arr.slice(start, end + 1)
 }
-
 const parseNode = (dir, node) => {
     node.text = node.text.trim()
     // 匹配[abc](123)这种
@@ -160,13 +158,11 @@ const buildTree = (dir, list) => {
     }
     return tree;
 }
-
 /**
  * 1. 解析根目录，扫描所有文件夹
  * 2. 文件夹下的README文件作为根文件，进行第一次解析
  * 3. 递归解析README扩展出的文件
  */
-
 function parse() {
     const dirs = fs.readdirSync(root);
     for (let dir of dirs) {
@@ -184,5 +180,4 @@ function parse() {
         }]))
     }
 }
-
 parse();
