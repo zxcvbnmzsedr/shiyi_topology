@@ -1,4 +1,4 @@
-# happens-before规则
+# happens_before规则
 
 在JSR-133规范中，提出了happens-before的概念，通过这个概念来阐述操作之间的内存可见性。
 
