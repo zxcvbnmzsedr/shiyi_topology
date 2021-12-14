@@ -72,10 +72,12 @@
 ## 底层原理
 
 + [CAS原理](CAS原理.md)
++ [AQS框架](AQS框架.md)
++ [伪共享](伪共享.md)
 
 ### Java内存模型
 
 + [什么是Java内存模型](Java内存模型介绍.md)
 + [什么是happens-before规则](happens-before规则.md)
 
-### [AQS框架](AQS框架.md)
+### 
