@@ -14,14 +14,19 @@ import Mermaid from '../components/mermaid'
 import CopyButton from "../components/copybutton";
 
 const Post = ({data}) => {
-    const rawMarkdownBody = data.markdownRemark
-
+    const rawMarkdownBody = data.markdownRemark.rawMarkdownBody
+    const title = rawMarkdownBody.match(/(?<=^(#+))(.*)/g)
+    const description = rawMarkdownBody.replace(/#*.*#/g, '')
+        .replace(/[^a-z0-9\u4e00-\u9fa5]/, '')
+        .replace(/[\r\n]/g, "")
+        .substring(0, 200)
+    console.log(description)
     return (
-        <DefaultLayout>
+        <DefaultLayout title={title} description={description}>
             <div className={style.markdownBody}>
                 <ReactMarkdown
                     className="markdown-body"
-                    children={rawMarkdownBody.rawMarkdownBody}
+                    children={rawMarkdownBody}
                     plugins={[remarkGfm]}
                     components={{
                         img({alt, ...props}) {
@@ -69,7 +74,7 @@ const Post = ({data}) => {
                 />
             </div>
             <div className={style.navContainer}>
-                <MarkdownNavbar declarative={true} source={rawMarkdownBody.rawMarkdownBody}/>
+                <MarkdownNavbar declarative={true} source={rawMarkdownBody}/>
             </div>
         </DefaultLayout>
     )

@@ -6,16 +6,18 @@ import {Link} from 'gatsby'
 import Navigation from '../Navigation'
 import {StaticImage} from "gatsby-plugin-image"
 
-const DefaultLayout = ({data, children, bodyClass, isHome}) => {
-
+const DefaultLayout = ({description, title, keywords, children, bodyClass, isHome}) => {
+    title = title ? title + "-" + config.title : config.title
+    description = description ? description : config.description
+    keywords = keywords ? keywords : config.keywords
     return <>
         <Helmet>
+            <title>{title}</title>
+            <meta name='description' content={`${description}`}/>
+            <meta name='keywords' content={`${keywords}`}/>
             <body className={bodyClass}/>
-
         </Helmet>
-
         <div className="viewport">
-
             <div className="viewport-top">
                 {/* The main header section on top of the screen */}
                 <header className="site-head"
@@ -31,8 +33,8 @@ const DefaultLayout = ({data, children, bodyClass, isHome}) => {
                                 {config.github && <a href={config.github} className="site-nav-item" target="_blank"
                                                      rel="noopener noreferrer">
                                     <img className="site-nav-icon"
-                                                 src="/images/icons/github-log.png"
-                                                 alt="Twitter"/>
+                                         src="/images/icons/github-log.png"
+                                         alt="Twitter"/>
                                 </a>}
                                 <a className="site-nav-item"
                                    href={`https://feedly.com/i/subscription/feed/${config.siteUrl}/rss/`}
