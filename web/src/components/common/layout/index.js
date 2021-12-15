@@ -6,7 +6,7 @@ import {Link} from 'gatsby'
 import Navigation from '../Navigation'
 import {StaticImage} from "gatsby-plugin-image"
 
-const DefaultLayout = ({description, title, keywords, children, bodyClass, isHome}) => {
+const DefaultLayout = ({description , title , keywords , children, bodyClass, isHome}) => {
     title = title ? title + "-" + config.title : config.title
     description = description ? description : config.description
     keywords = keywords ? keywords : config.keywords

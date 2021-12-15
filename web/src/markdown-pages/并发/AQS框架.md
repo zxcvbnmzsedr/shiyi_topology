@@ -451,3 +451,7 @@ final boolean acquireQueued(final Node node, int arg) {
     // 值为0，表示当前节点在sync队列中，等待着获取锁
 
 AQS就是靠着这个数据结构来对线程来进行处理的。
+
+AQS还有其他各种各样的api，这里就不展开赘述了，可以看去看https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html
+
+![img](https://www.shiyitopo.tech/uPic/82077ccf14127a87b77cefd1ccf562d3253591.png)

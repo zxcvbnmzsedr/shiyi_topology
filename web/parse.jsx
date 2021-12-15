@@ -158,6 +158,13 @@ const buildTree = (dir, list) => {
     }
     return tree;
 }
+
+function getTitle(filePath) {
+    const source = fs.readFileSync(filePath, 'utf8')
+
+    return source.match(/(?<=^(#+))(.*)/g)[0].trim();
+}
+
 /**
  * 1. 解析根目录，扫描所有文件夹
  * 2. 文件夹下的README文件作为根文件，进行第一次解析
@@ -173,11 +180,13 @@ function parse() {
         }
         const readmePath = path.join(dir, readmeMDs[0])
         const tokens = getNavStructure(readmePath);
+        const title = getTitle(readmePath)
         const tree = buildTree(dir, tokens)
         fs.writeFileSync(path.join(dir, 'index.json'), JSON.stringify([{
             'tree': JSON.stringify(tree),
-            'name': path.basename(dir)
+            'name': title ? title : path.basename(dir)
         }]))
     }
 }
+
 parse();

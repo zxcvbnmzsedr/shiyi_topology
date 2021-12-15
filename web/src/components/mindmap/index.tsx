@@ -1,13 +1,8 @@
 import * as React from "react";
 import * as d3 from 'd3';
 import {flextree} from 'd3-flextree';
-import {
-    INode,
-    Hook, getId, walkTree, arrayFrom, addClass, childSelector, noop, loadJS, loadCSS,
-} from 'markmap-common';
-import {IMarkmapOptions, IMarkmapState, IMarkmapFlexTreeItem, IMarkmapLinkItem} from './types';
-import {Transformer} from "./transform";
-import {useState} from "react";
+import {addClass, arrayFrom, childSelector, getId, Hook, INode, loadCSS, loadJS, noop, walkTree,} from 'markmap-common';
+import {IMarkmapFlexTreeItem, IMarkmapLinkItem, IMarkmapOptions, IMarkmapState} from './types';
 
 export {loadJS, loadCSS};
 
@@ -69,6 +64,7 @@ export class Markmap {
             d3.scaleOrdinal(d3.schemeCategory10),
         ),
         paddingX: 8,
+        isScale: true,
         nodeClick: (e: any, d: IMarkmapFlexTreeItem) => ({})
     };
 
@@ -417,7 +413,7 @@ ${this.getStyleContent()}
     async fit(): Promise<void> {
         const svgNode = this.svg.node();
         const {width: offsetWidth, height: offsetHeight} = svgNode.getBoundingClientRect();
-        const {fitRatio} = this.options;
+        const {fitRatio, isScale} = this.options;
         const {minX, maxX, minY, maxY} = this.state;
         const naturalWidth = maxY - minY;
         const naturalHeight = maxX - minX;
@@ -431,7 +427,8 @@ ${this.getStyleContent()}
                 (offsetWidth - naturalWidth * scale) / 2 - minY * scale,
                 (offsetHeight - naturalHeight * scale) / 2 - minX * scale,
             )
-            .scale(1);
+            // 控制缩放
+            .scale(isScale ? scale : 1);
         return this.transition(this.svg).call(this.zoom.transform, initialZoom).end().catch(noop);
     }
 
@@ -529,12 +526,8 @@ ${this.getStyleContent()}
 function handleNodes(parent, root, initialTreeDepth, count) {
     let f = false;
 
-    if (count >= initialTreeDepth) {
+    if (initialTreeDepth != -1 && count >= initialTreeDepth) {
         f = true
-        // // 如果父类是合并的，则子类全部展开
-        // if (parent?.p?.f) {
-        //     f = false
-        // }
     }
     const node: INode = {
         d: root.level,
@@ -554,7 +547,7 @@ function handleNodes(parent, root, initialTreeDepth, count) {
     return node;
 }
 
-const MindMap = ({root, nodeClick, initialTreeDepth = 3}) => {
+const MindMap = ({isScale = true, root, nodeClick, initialTreeDepth = 3}) => {
     const svgRef = React.useRef();
     const markMapRef = React.useRef<Markmap>();
     // const transformer = new Transformer(allNodes);
@@ -564,19 +557,24 @@ const MindMap = ({root, nodeClick, initialTreeDepth = 3}) => {
         }
         const nodes = handleNodes(null, root, initialTreeDepth, 0);
 
+
         if (markMapRef.current) {
             markMapRef.current.setData(nodes);
             markMapRef.current.fit();
             return;
         }
-        markMapRef.current = Markmap.create(svgRef.current, {nodeClick: nodeClick, fitRatio: 1}, nodes)
+        markMapRef.current = Markmap.create(svgRef.current, {
+            nodeClick: nodeClick,
+            fitRatio: 1,
+            isScale: isScale
+        }, nodes)
     }, [root]);
 
     return (
         <svg ref={svgRef}
              style={{
                  width: "100%",
-                 height: "1000",
+                 height: "800px",
              }}/>
     )
 };
