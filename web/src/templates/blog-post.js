@@ -12,6 +12,7 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import Mermaid from '../components/mermaid'
 import CopyButton from "../components/copybutton";
+import Utterances from "utterances-react"
 
 const Post = ({data}) => {
     const rawMarkdownBody = data.markdownRemark.rawMarkdownBody
@@ -75,6 +76,21 @@ const Post = ({data}) => {
             </div>
             <div className={style.navContainer}>
                 <MarkdownNavbar declarative={true} source={rawMarkdownBody}/>
+            </div>
+            <div>
+                <Utterances
+                    repo="zxcvbnmzsedr/shiyi_topology"
+                    issueTerm="title"
+                    label="post"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async={false}
+                    style={`
+                      & .utterances {
+                        max-width: 950px;
+                      }
+                    `}
+                />
             </div>
         </DefaultLayout>
     )
