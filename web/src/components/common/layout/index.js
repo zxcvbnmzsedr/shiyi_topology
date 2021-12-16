@@ -6,13 +6,27 @@ import {Link} from 'gatsby'
 import Navigation from '../Navigation'
 import {StaticImage} from "gatsby-plugin-image"
 
-const DefaultLayout = ({description , title , keywords , children, bodyClass, isHome}) => {
+const DefaultLayout = ({description, title, keywords, children, bodyClass, isHome}) => {
     title = title ? title + "-" + config.title : config.title
     description = description ? description : config.description
     keywords = keywords ? keywords : config.keywords
+    const [_title, setTitle] = React.useState(title)
+    const onBlur = () => {
+        setTitle('啊这，怎么走了？')
+    }
+    const onFocus = () => {
+        setTitle('呕吼，又回来了！')
+        setTimeout(() => {
+            setTitle(title)
+        }, 2000);
+    }
+    React.useEffect(() => {
+        window.addEventListener('focus', onFocus);
+        window.addEventListener('blur', onBlur);
+    })
     return <>
         <Helmet>
-            <title>{title}</title>
+            <title>{_title}</title>
             <meta name='description' content={`${description}`}/>
             <meta name='keywords' content={`${keywords}`}/>
             <body className={bodyClass}/>
