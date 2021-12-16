@@ -38,7 +38,7 @@ const DefaultLayout = ({description , title , keywords , children, bodyClass, is
                                 </a>}
                                 <a className="site-nav-item"
                                    href={`https://feedly.com/i/subscription/feed/${config.siteUrl}/rss/`}
-                                   target="_blank" rel="noopener noreferrer">
+                                   target="_blank" rel="nµoopener noreferrer">
                                     <StaticImage className="site-nav-icon"
                                                  src="/images/icons/rss.svg"
                                                  alt="RSS Feed"/>

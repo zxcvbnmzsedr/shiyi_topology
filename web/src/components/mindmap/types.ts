@@ -16,6 +16,7 @@ export interface IMarkmapOptions {
     nodeClick?: (e,d) => void;
     style?: (id: string) => string;
     isScale: boolean;
+    extension: boolean;
 }
 
 export interface IMarkmapState {

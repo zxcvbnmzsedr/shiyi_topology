@@ -12,7 +12,7 @@ const BlogReadmeMind = ({data}) => {
     return (
         <DefaultLayout title={name}>
             <h1 style={{'text-align': 'center'}}>{name}</h1>
-            <MindMap isScale={false} root={tree} initialTreeDepth={-1}/>
+            <MindMap extension={true} isScale={false} root={tree} initialTreeDepth={-1}/>
         </DefaultLayout>
     )
 }

@@ -65,6 +65,8 @@ export class Markmap {
         ),
         paddingX: 8,
         isScale: true,
+        // 是否自动展开，撑开svg大小
+        extension: false,
         nodeClick: (e: any, d: IMarkmapFlexTreeItem) => ({})
     };
 
@@ -87,6 +89,7 @@ export class Markmap {
 
     revokers: (() => void)[] = [];
     id: string;
+    naturalHeight: number;
 
     constructor(svg: string | SVGElement | ID3SVGElement, opts?: IMarkmapOptions, id?: string) {
         [
@@ -412,16 +415,21 @@ ${this.getStyleContent()}
      */
     async fit(): Promise<void> {
         const svgNode = this.svg.node();
-        const {width: offsetWidth, height: offsetHeight} = svgNode.getBoundingClientRect();
-        const {fitRatio, isScale} = this.options;
+        let {width: offsetWidth, height: offsetHeight} = svgNode.getBoundingClientRect();
+        const {fitRatio, isScale, extension} = this.options;
         const {minX, maxX, minY, maxY} = this.state;
         const naturalWidth = maxY - minY;
         const naturalHeight = maxX - minX;
+        if (extension) {
+            offsetWidth = naturalWidth;
+            offsetHeight = naturalHeight;
+        }
         const scale = Math.min(
             offsetWidth / naturalWidth * fitRatio,
             offsetHeight / naturalHeight * fitRatio,
             2,
         );
+        this.naturalHeight = naturalHeight;
         const initialZoom = d3.zoomIdentity
             .translate(
                 (offsetWidth - naturalWidth * scale) / 2 - minY * scale,
@@ -547,16 +555,22 @@ function handleNodes(parent, root, initialTreeDepth, count) {
     return node;
 }
 
-const MindMap = ({isScale = true, root, nodeClick, initialTreeDepth = 3}) => {
+const MindMap = ({
+                     extension = false,
+                     isScale = true,
+                     root,
+                     nodeClick,
+                     height = 800,
+                     initialTreeDepth = 3
+                 }) => {
     const svgRef = React.useRef();
     const markMapRef = React.useRef<Markmap>();
-    // const transformer = new Transformer(allNodes);
+    const [naturalHeight, setNaturalHeight] = React.useState(height)
     React.useEffect(() => {
         if (!svgRef.current) {
             return
         }
         const nodes = handleNodes(null, root, initialTreeDepth, 0);
-
 
         if (markMapRef.current) {
             markMapRef.current.setData(nodes);
@@ -566,16 +580,21 @@ const MindMap = ({isScale = true, root, nodeClick, initialTreeDepth = 3}) => {
         markMapRef.current = Markmap.create(svgRef.current, {
             nodeClick: nodeClick,
             fitRatio: 1,
-            isScale: isScale
+            isScale: isScale,
+            extension: extension
         }, nodes)
+        setNaturalHeight(markMapRef.current.naturalHeight)
     }, [root]);
 
     return (
-        <svg ref={svgRef}
-             style={{
-                 width: "100%",
-                 height: "800px",
-             }}/>
+        <div style={{textAlign: "center"}}>
+            <svg ref={svgRef}
+                 style={{
+                     width: "90%",
+                     height: extension ? naturalHeight : height,
+                 }}/>
+        </div>
+
     )
 };
 
