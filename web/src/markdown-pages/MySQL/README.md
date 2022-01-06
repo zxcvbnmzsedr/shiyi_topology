@@ -1,10 +1,8 @@
 # MySQL
 
-## 架构
+## [架构](mysql体系结构.md)
 
-+ mysql体系结构
-
-  
+## [InnoDB存储引擎](InnoDB存储引擎.md)
 
 ## 索引
 
